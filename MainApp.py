@@ -1,49 +1,66 @@
 import tkinter as tk
+
 from tkinter.ttk import Separator
+
 from BackEnd import *
+
 from Add_song_frame import *
+
 from ShowSongFrame import *
+
 
 if __name__ != '__main__':
     raise Exception("File is not Main")
 
 class App(tk.Tk):
     
+
     def __init__(self):
+
         super().__init__()
+
         self.title("Songbook")
-        self.geometry('700x500')
-        
+        self.geometry('900x500')
+
         # frames
-        self.add_frame = AddSongFrame(parent=self)
-        self.show_frame = ShowSongFrame(parent=self)
-        #self.add_frame.grid(padx=10, pady=10)
+        self.add_frame = tk.LabelFrame(master=self, text="Přidat píseň", padx=10, pady=10)
+        self.add_frame.grid(row=0, column=0, padx=10, pady=10)
+        self.add_frame_content = AddSongFrame(parent=self.add_frame)
         
+        self.show_frame = tk.LabelFrame(master=self, text="Seznam písní", padx=10, pady=10)
+        self.show_frame.grid(row=0, column=1, padx=10, pady=10)
+        self.show_frame_content = ShowSongFrame(parent=self.show_frame)
+        
+        self.add_frame_content.add_function = self.show_frame_content.update_treeview
+
         # hotkey binds
         def downKey(event):
-            self.add_frame.song_author_e.focus()
+            self.add_frame_content.song_author_e.focus()
 
         def upKey(event):
-            self.add_frame.song_name_e.focus()
+            self.add_frame_content.song_name_e.focus()
 
         def enterKey(event):
-            if self.add_frame.song_author_e.get() == '':
-                self.add_frame.song_author_e.focus()
+            if self.add_frame_content.song_author_e.get() == '':
+                self.add_frame_content.song_author_e.focus()
             else:
-                Add_song_click()
+                self.add_frame_content.Add_song_click()
+                self.show_frame_content.update_treeview()
 
         # binds
         self.bind('<Down>', downKey)
         self.bind('<Up>', upKey)
         self.bind('<Return>', enterKey)
         
-        self.add_frame.song_name_e.focus()
+        self.add_frame_content.song_name_e.focus()
     
     
+
+BackEnd.Get_songs("songs.csv")
 MainApp = App()
-# if __name__ != '__main__':
-Get_songs("songs.csv")
-#MainApp.add_frame.song_name_e.focus()
+MainApp.add_frame_content.song_name_e.focus()
 MainApp.mainloop()
-Save_songs("songs.csv")
+
+BackEnd.Save_songs("songs.csv")
+
 
