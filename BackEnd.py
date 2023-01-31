@@ -6,8 +6,6 @@ class BackEnd: # static class
     
     # variables
     song_list = list()
-    
-    
     list_of_genres =    ["Folk",
                         "Rock",
                         "Rap",
@@ -43,6 +41,7 @@ class BackEnd: # static class
         if song_name != '' and song_author != '':
             song_stream = [song_name, song_author, genres]
             BackEnd.song_list.append(song_stream)
+            
 
     
     

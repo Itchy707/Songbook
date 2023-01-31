@@ -20,7 +20,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title("Songbook")
-        self.geometry('900x500')
+        self.geometry('1100x500')
 
         # frames
         self.add_frame = tk.LabelFrame(master=self, text="Přidat píseň", padx=10, pady=10)
@@ -53,7 +53,6 @@ class App(tk.Tk):
         self.bind('<Return>', enterKey)
         
         self.add_frame_content.song_name_e.focus()
-    
     
 
 BackEnd.Get_songs("songs.csv")
