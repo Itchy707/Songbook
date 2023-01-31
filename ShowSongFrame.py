@@ -29,7 +29,7 @@ class ShowSongFrame(tk.LabelFrame):
         self.delete_song_button = tk.Button(master=parent, text="Smazat píseň", command=lambda: self.__delete_item__(self))
         self.delete_song_button.grid(row=1, column=4)
         
-        self.sort_song_button = tk.Button(master=parent, text="latex píseň", command=lambda: LaTeXGenerator.generate_file())
+        self.sort_song_button = tk.Button(master=parent, text="Vytvořit PDF", command=lambda: LaTeXGenerator.generate_file())
         self.sort_song_button.grid(row=1, column=3)
         
         # sort bind
