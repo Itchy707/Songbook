@@ -25,19 +25,22 @@ class ShowSongFrame(tk.LabelFrame):
         self.treeview.grid(row=0, column=0, columnspan = 5, sticky='nsew')
         self.update_treeview()
         
-        # buttons
+        # Button for deleting a selected song
         self.delete_song_button = tk.Button(master=parent, text="Smazat píseň", command=lambda: self.__delete_item__(self))
         self.delete_song_button.grid(row=1, column=4)
         
-        self.sort_song_button = tk.Button(master=parent, text="Vytvořit PDF", command=lambda: LaTeXGenerator.generate_file())
-        self.sort_song_button.grid(row=1, column=3)
+        # Button for creating PDF file via LaTeX
+        self.latex_song_button = tk.Button(master=parent, text="Vytvořit PDF", command=lambda: LaTeXGenerator.generate_file())
+        self.latex_song_button.grid(row=1, column=3)
         
-        # sort bind
+        # Doubleclick on heading sorts treeview by associated collumn
         self.treeview.bind('<Double-1>', self.__sort_items__)
+        
+        # Doubleclick on item allows to modify associated data
         self.treeview.bind('<Double-1>', self.__config_item__)
         
         
-    
+    # Deletes database and recreates it with fresh data
     def update_treeview(self):
         self.treeview.delete(*self.treeview.get_children())
         for id, song in enumerate(BackEnd.song_list):
@@ -50,7 +53,6 @@ class ShowSongFrame(tk.LabelFrame):
             song_row = tuple(song_row)
             self.treeview.insert('', 'end', values=song_row)
                     
-        
     def __create_headings__(self, columns):
         for id, column in enumerate(columns):
             self.treeview.heading(columns[id], text=column)
@@ -66,7 +68,10 @@ class ShowSongFrame(tk.LabelFrame):
         index = self.treeview.index(item)
         del BackEnd.song_list[index]
         self.update_treeview()
-        
+    
+    
+    # --works only for song name and song author; also makes differences between upper and lower case, which should be repaired
+    # TODO    
     def __sort_items__(self, event):
         index = self.treeview.identify('column', event.x, event.y)
         index = re.findall('\d+', index)
@@ -78,12 +83,14 @@ class ShowSongFrame(tk.LabelFrame):
         a = a[a[:, index].argsort()]
         BackEnd.song_list = list(a)
         self.update_treeview()
-        
+    
+    # TODO
     def __config_item__(self, event):
         item = self.treeview.identify('item', event.x, event.y)
         item = self.treeview.index(item)
         print(item)
         child_w = ConfigSongFrame(parent=self)
+
         
         
     

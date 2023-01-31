@@ -20,7 +20,11 @@ class LaTeXGenerator: # static class
     
     # variable to create Songbook.tex file
     __documentclass__ = "article"
-    __packages__ = [["babel", "czech"], ["fontenc", "T1"], ["booktabs"], ["inputenc", "cp1250"], ["amssymb"]]
+    __packages__ = [["babel", "czech"],
+                    ["fontenc", "T1"],
+                    ["booktabs"],
+                    ["inputenc", "cp1250"],
+                    ["amssymb"]]
     
     @staticmethod
     def __generate_table_header__():
@@ -32,7 +36,7 @@ class LaTeXGenerator: # static class
             header += space + "\\textbf{" + genre + "}"
         header += "\\\\ \n\\midrule\n"
         LaTeXGenerator.__table_header__ = header
-        
+    
     @staticmethod
     def __generate_songs_string__():
         space = ' & '
@@ -83,7 +87,3 @@ class LaTeXGenerator: # static class
             f.write("\\include{Songs.tex}\n")
             f.write("\\end{document}")
             
-                         
-             
-                        
-    
