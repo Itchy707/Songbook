@@ -18,13 +18,24 @@ class LaTeXGenerator: # static class
                         "\n\\end{table}"
                         ]
     
-    # variable to create Songbook.tex file
+    # variables to create Songbook.tex file
     __documentclass__ = "article"
+    __documentclass_params__ = ["", # font size
+                                "", # paper size and format
+                                "", # draft mode 
+                                "", # multiple columns
+                                "", # formula-specific options
+                                "", # oneside/twoside
+                                "", # titlepage behav
+                                "", # chapter opening page
+                                ]
+    
     __packages__ = [["babel", "czech"],
                     ["fontenc", "T1"],
                     ["booktabs"],
                     ["inputenc", "cp1250"],
-                    ["amssymb"]]
+                    ["amssymb"],
+                    ["geometry", "total={7in, 10.5in}"]]
     
     @staticmethod
     def __generate_table_header__():

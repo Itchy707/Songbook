@@ -48,6 +48,7 @@ class AddSongFrame(tk.LabelFrame):
             self.genre_boxes.append(checkb_var)
             row = row + 1
 
+        # Separating line between entries and genre checkboxes
         self.sep = Separator(root, orient='horizontal')
         self.sep.grid(row=2, column=0, columnspan=11, sticky='ew', padx=5, pady=5)
         
@@ -60,6 +61,12 @@ class AddSongFrame(tk.LabelFrame):
                           command= lambda: self.Reset_click())
         self.Add_song_button.grid(row=5, column=9)
         self.Reset_button.grid(row=6, column=9)
+
+        # binds
+        self.song_name_e.bind('<Down>', self.downKey)
+        self.song_author_e.bind('<Up>', self.upKey)
+        self.song_name_e.bind('<Return>', self.enterKey)
+        self.song_author_e.bind('<Return>', self.enterKey)
 
     # button commands
     def Add_song_click(self):
@@ -83,4 +90,19 @@ class AddSongFrame(tk.LabelFrame):
     # Reset
     def Reset_click(self):
         print(BackEnd.song_list)
+        
+    # hotkey binds
+    def downKey(self, event):
+        self.song_author_e.focus()
+
+    def upKey(self, event):
+        self.song_name_e.focus()
+
+    def enterKey(self, event):
+        if self.song_author_e.get() == '':
+            self.song_author_e.focus()
+        else:
+            self.Add_song_click()
+            if add_fuction != None:
+                self.add_function()
         

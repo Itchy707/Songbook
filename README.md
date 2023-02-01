@@ -7,7 +7,7 @@ Po letech hraní na kytaru se nestává zas tak velkým problém najít akordy k
   ◼ Možnost modifikace žánrů skrze frontend.  
   ◼ Třídění písní podle názvu, autora a žánrů. (ČÁSTEČNĚ SPLNĚNO)  
   ◼ Ukládání písní do souboru .csv (SPLNĚNO)  
-  ◼ Úprava již uložené písně.  
+  ◼ Úprava již uložené písně. (ČÁSTEČNĚ SPLNĚNO)
   ◼ Ošetření chyb, které mohou v aplikaci nastat (včetně chybějících LaTeX balíčků).  
   ◼ Konverze databáze do .pdf pomocí LaTeXu. (SPLNĚNO)  
   ◼ Možnost úpravy vzhledu .pdf souboru skrze frontend.

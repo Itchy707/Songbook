@@ -6,11 +6,12 @@ class BackEnd: # static class
     
     # variables
     song_list = list()
-    list_of_genres =    ["Folk",
+    list_of_genres =    ["Punk",
                         "Rock",
-                        "Rap",
-                        "Country",
-                        "Smutné"]
+                        "Táborové",
+                        "Anglické",
+                        "Smutné",
+                        "Odrhovačka"]
 
     # Get songs from file (init)
     @staticmethod
