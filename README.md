@@ -11,4 +11,4 @@ Po letech hraní na kytaru se nestává zas tak velkým problém najít akordy k
   ◼ Ošetření chyb, které mohou v aplikaci nastat (včetně chybějících LaTeX balíčků).  
   ◼ Konverze databáze do .pdf pomocí LaTeXu. (SPLNĚNO)  
   ◼ Možnost úpravy vzhledu .pdf souboru skrze frontend.
-  ◼ Ošetření příliš dlouhých názvů písní a autorů
+  ◼ Ošetření příliš dlouhých názvů písní a autorů (ČÁSTEČNĚ SPLNĚNO)

@@ -17,6 +17,7 @@ class LaTeXGenerator: # static class
     __table_ending__ = ["\n\\end{tabular}",
                         "\n\\end{table}"
                         ]
+    __max_string_length__ = 20
     
     # variables to create Songbook.tex file
     __documentclass__ = "article"
@@ -49,17 +50,21 @@ class LaTeXGenerator: # static class
         LaTeXGenerator.__table_header__ = header
     
     @staticmethod
+    #TODO
+    # make it work for longer strings
     def __generate_songs_string__():
-        space = ' & '
         songs = list()
         for song in BackEnd.song_list:
-            song_line = song[0] + space + song[1] # add song name and song author
-            for genre in BackEnd.list_of_genres:
-                if song[2].__contains__(genre):
-                    song_line += space + ("  $$\\checkmark$$  ")
-                else:
-                    song_line += space + ("     ")
-            song_line += "\\\\\n"
+            if len(song[0]) > LaTeXGenerator.__max_string_length__ or len(song[1]) > LaTeXGenerator.__max_string_length__:
+                song_line = LaTeXGenerator.__make_multiple_lines__(song)
+            else: 
+                song_line = song[0] + ' & ' + song[1] # add song name and song author
+                for genre in BackEnd.list_of_genres:
+                    if song[2].__contains__(genre):
+                        song_line += ' & ' + ("  $$\\checkmark$$  ")
+                    else:
+                        song_line += ' & ' + ("     ")
+                song_line += "\\\\\n"
             songs.append(song_line)
         LaTeXGenerator.__songs__ = songs
     
@@ -97,4 +102,41 @@ class LaTeXGenerator: # static class
             f.write("\\begin{document}\n")
             f.write("\\include{Songs.tex}\n")
             f.write("\\end{document}")
+            
+            
+    # TODO
+    @staticmethod
+    def __make_multiple_lines__(song):
+        # separate song author and name by space
+        # TODO make it separate by space AND by amount of chars, so it can reduce amount of needed columns
+        name = song[0].split()
+        author = song[1].split()
+        
+        song_line = ''
+        for row in range(max(len(name), len(author))):
+            # each word is reparated into rows
+            try:
+                song_line += name[row] + ' & '
+            except IndexError:
+                song_line += ' & '
+            try:
+                song_line += author[row]
+            except IndexError:
+                song_line += ''
+            
+            # fill 1st row with genre checkmarks
+            for genre in BackEnd.list_of_genres:
+                    if song[2].__contains__(genre) and row == 0:
+                        song_line += ' & ' + ("  $$\\checkmark$$  ")
+                    else:
+                        song_line += ' & ' + ("     ")
+                
+                
+            song_line += '\\\\\n'
+        
+        return song_line    
+        
+        
+        
+         
             

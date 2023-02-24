@@ -1,11 +1,12 @@
 import tkinter as tk
 from BackEnd import *
 from ConfigSongFrame import *
+from LaTeXGenerator import *
 from tkinter import ttk
 import re
 import numpy as np
 import subprocess
-from LaTeXGenerator import *
+import czech_sort
 
 if __name__ == "__main__":
     raise Exception("That is not main!")
@@ -59,7 +60,7 @@ class ShowSongFrame(tk.LabelFrame):
             if id == 1 or id == 2: # for song name and song author make the column wider
                 self.treeview.column(columns[id], stretch=tk.NO, width=150)
             else:
-                self.treeview.column(columns[id], stretch=tk.NO, width=len(column)*10)
+                self.treeview.column(columns[id], stretch=tk.NO, width=len(column)*10, anchor='center')
                 
     def __delete_item__(self, event):
         item = self.treeview.selection()
@@ -79,14 +80,16 @@ class ShowSongFrame(tk.LabelFrame):
         else:
             return
     
-    # --works only for song name and song author; also makes differences between upper and lower case, which should be fixed
+    # --works only for song name and song author; also makes differences between upper and lower case, and doesn't work well with czech chars
     # TODO
     def __sort_items__(self, event):
+        # get index of column; 0 = song name, 1 = song author
         index = self.treeview.identify('column', event.x, event.y)
         index = re.findall('\d+', index)
         index = int(index[0]) - 2
         if index > 1 or index < 0:
             return
+    
         a = np.array(BackEnd.song_list.copy())
         a = a[a[:, index].argsort()]
         BackEnd.song_list = list(a)
