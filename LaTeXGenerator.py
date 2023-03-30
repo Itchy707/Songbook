@@ -112,6 +112,9 @@ class LaTeXGenerator: # static class
         name = song[0].split()
         author = song[1].split()
         
+        for part in name:
+            pass
+        
         song_line = ''
         for row in range(max(len(name), len(author))):
             # each word is reparated into rows
