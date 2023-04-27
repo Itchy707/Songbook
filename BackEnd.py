@@ -1,5 +1,6 @@
 import tkinter as tk
 import csv
+import os
 
 class BackEnd: # static class
     
@@ -16,8 +17,11 @@ class BackEnd: # static class
     # Get songs from file (init)
     @staticmethod
     def Get_songs(file_name):
-        with open(file_name) as csv_file:
-            BackEnd.song_list = list(csv.reader(csv_file, delimiter=","))   
+        if os.path.isfile('songs.csv'):
+            with open(file_name) as csv_file:
+                BackEnd.song_list = list(csv.reader(csv_file, delimiter=","))
+        else:
+            print('CSV file doesnt exist yet!')
 
     # Save songs to file
     @staticmethod

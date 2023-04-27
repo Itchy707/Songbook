@@ -8,6 +8,8 @@ from Add_song_frame import *
 
 from ShowSongFrame import *
 
+import os 
+
 
 if __name__ != '__main__':
     raise Exception("File is not Main")
@@ -35,7 +37,7 @@ class App(tk.Tk):
         self.add_frame_content.song_name_e.focus()
     
 
-BackEnd.Get_songs("songs.csv")
+BackEnd.Get_songs('songs.csv')
 
 MainApp = App()
 MainApp.add_frame_content.song_name_e.focus()
